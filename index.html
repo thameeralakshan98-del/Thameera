@@ -1,91 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="si">
 <head>
+    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basic Shop - Your Online Store</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Advanced Accounting System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f4f7f6; font-family: 'Segoe UI', sans-serif; }
+        .nav-tabs .nav-link { color: #333; font-weight: 600; }
+        .container { margin-top: 30px; }
+        .card { border: none; box-shadow: 0 0 15px rgba(0,0,0,0.1); border-radius: 10px; }
+        .table-res { overflow-x: auto; }
+    </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <div class="container">
-                <div class="logo">🛍️ BasicShop</div>
-                <ul class="nav-links">
-                    <li><a href="#products">Products</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="#cart" class="cart-icon">🛒 Cart (<span id="cart-count">0</span>)</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="container">
-                <h1>Welcome to BasicShop</h1>
-                <p>Discover amazing products at great prices</p>
-            </div>
-        </section>
+<div class="container">
+    <h2 class="text-center mb-4">ස්වයංක්‍රීය ගිණුම්කරණ පද්ධතිය</h2>
 
-        <!-- Products Section -->
-        <section id="products" class="products">
-            <div class="container">
-                <h2>Our Products</h2>
-                <div class="products-grid" id="products-grid">
-                    <!-- Products will be loaded here by JavaScript -->
-                </div>
-            </div>
-        </section>
+    <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+        <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#entry">Data Entry</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#ledger">General Ledger</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#trial">Trial Balance</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#statements">Financial Statements</button></li>
+    </ul>
 
-        <!-- Cart Section -->
-        <section id="cart" class="cart-section">
-            <div class="container">
-                <h2>Shopping Cart</h2>
-                <div class="cart-content">
-                    <div id="cart-items" class="cart-items">
-                        <!-- Cart items will be displayed here -->
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="entry">
+            <div class="card p-4">
+                <h4>නව ගනුදෙනුවක් ඇතුළත් කරන්න</h4>
+                <div class="row g-3 mt-2">
+                    <div class="col-md-2"><input type="date" id="date" class="form-control"></div>
+                    <div class="col-md-3"><input type="text" id="desc" class="form-control" placeholder="විස්තරය"></div>
+                    <div class="col-md-2"><input type="number" id="amount" class="form-control" placeholder="මුදල"></div>
+                    <div class="col-md-2">
+                        <select id="debitAcc" class="form-control"></select>
                     </div>
-                    <div class="cart-summary">
-                        <h3>Order Summary</h3>
-                        <p>Subtotal: $<span id="subtotal">0.00</span></p>
-                        <p>Tax (10%): $<span id="tax">0.00</span></p>
-                        <h4>Total: $<span id="total">0.00</span></h4>
-                        <button id="checkout-btn" class="checkout-btn">Proceed to Checkout</button>
-                        <button id="clear-cart-btn" class="clear-cart-btn">Clear Cart</button>
+                    <div class="col-md-2">
+                        <select id="creditAcc" class="form-control"></select>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-success w-100" onclick="saveTransaction()">Save</button>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
 
-    <!-- Checkout Modal -->
-    <div id="checkout-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Checkout</h2>
-            <form id="checkout-form">
-                <input type="text" placeholder="Full Name" required>
-                <input type="email" placeholder="Email" required>
-                <input type="text" placeholder="Address" required>
-                <input type="text" placeholder="City" required>
-                <input type="text" placeholder="Zip Code" required>
-                <input type="text" placeholder="Card Number" required>
-                <div class="form-row">
-                    <input type="text" placeholder="MM/YY" required>
-                    <input type="text" placeholder="CVV" required>
+        <div class="tab-pane fade" id="ledger">
+            <div class="card p-4">
+                <h4>සාමාන්‍ය ලෙජරය (General Ledger)</h4>
+                <div id="ledger-container"></div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="trial">
+            <div class="card p-4">
+                <h4>ශේෂ පිරික්සුම</h4>
+                <table class="table table-hover mt-3">
+                    <thead class="table-dark"><tr><th>ගිණුම</th><th>හර (Dr)</th><th>බැර (Cr)</th></tr></thead>
+                    <tbody id="trial-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="statements">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card p-4">
+                        <h4>ලාභ අලාභ ගිණුම (P&L)</h4>
+                        <div id="pl-body"></div>
+                    </div>
                 </div>
-                <button type="submit" class="submit-btn">Complete Order</button>
-            </form>
+                <div class="col-md-6">
+                    <div class="card p-4">
+                        <h4>ශේෂ පත්‍රය (Balance Sheet)</h4>
+                        <div id="bs-body"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</div>
 
-    <footer>
-        <p>&copy; 2026 BasicShop. All rights reserved.</p>
-    </footer>
-
-    <script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="app.js"></script>
 </body>
 </html>
