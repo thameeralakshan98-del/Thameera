@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electric Shop</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <h2>Electric Shop</h2>
+        <ul>
+            <li><a href="#" onclick="showPage('home')">Home</a></li>
+            <li><a href="#" onclick="showPage('add-item')">Add Item</a></li>
+            <li><a href="#" onclick="showPage('cart')">Cart</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="page">
+        <h1>පවතින භාණ්ඩ</h1>
+        <div id="product-list" class="grid-container"></div>
+    </section>
+
+    <section id="add-item" class="page" style="display:none;">
+        <h1>නව භාණ්ඩයක් ඇතුළත් කරන්න</h1>
+        <form id="product-form">
+            <input type="text" id="p-name" placeholder="භාණ්ඩයේ නම" required>
+            <textarea id="p-desc" placeholder="විස්තරය" required></textarea>
+            <input type="text" id="p-img" placeholder="රූපයේ Link එක (URL)" required>
+            <input type="text" id="p-whatsapp" placeholder="WhatsApp අංකය" required>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+
+    <section id="cart" class="page" style="display:none;">
+        <h1>ඔබේ කරත්තය (Cart)</h1>
+        <div id="cart-list" class="grid-container"></div>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+</html>
